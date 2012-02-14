@@ -16,6 +16,11 @@
     <script type="text/javascript">
         var map;
         function init() {
+
+            // allow testing of specific renderers via "?renderer=Canvas", etc
+            var renderer = OpenLayers.Util.getParameters(window.location.href).renderer;
+            renderer = (renderer) ? [renderer] : OpenLayers.Layer.Vector.prototype.renderers;
+
             map = new OpenLayers.Map('map', {
                 layers: [new OpenLayers.Layer.OSM()]
             });
@@ -45,7 +50,8 @@
                     featuresadded: function(event) {
                         this.map.zoomToExtent(this.getDataExtent());
                     }
-                }
+                },
+                renderers: renderer
             });
             map.addLayer(waypoints);
             map.zoomTo(2);
