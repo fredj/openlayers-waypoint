@@ -40,7 +40,12 @@
                         strokeWidth: 1,
                         label: "${description}"
                     }
-                })
+                }),
+                eventListeners: {
+                    featuresadded: function(event) {
+                        this.map.zoomToExtent(this.getDataExtent());
+                    }
+                }
             });
             map.addLayer(waypoints);
             map.zoomTo(2);
